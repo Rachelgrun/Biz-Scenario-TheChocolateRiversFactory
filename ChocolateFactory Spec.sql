@@ -49,7 +49,7 @@ show the pieces in this order: Chocolate Name,yearPutOnShelf,DateSold,#Yearsold(
 
 3) Mix together some flavors by subtracting 2 ingredients from 3-5 and adding 2 from 1 and 2 
 what number flavor comes out? present the Recipe as the chocolate type description colon the chocolate flavor description colon the chocolate flavor numbernand then
-which operation it will get iehther plus 2 or minus 2 based on its flavor number i.e Chocolate Candy Bar:milk creme & Dark Creme: 5-2
+which operation it will get either plus 2 or minus 2 based on its flavor number i.e Chocolate Candy Bar:milk creme & Dark Creme: 5-2
 
 
 Use the Medalist Table for sample data
