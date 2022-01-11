@@ -15,7 +15,6 @@ create table dbo.Chocolate(
     WeightOfChocolate int not null constraint ck_Chocolate_Weight_Of_Chocolate_must_between_one_and_six check(WeightOfChocolate between 1 and 6),
     DateOfExpiration date not null,
     DateSold date null,
-    constraint ck_Chocolate_either_DateOfExpiration_is_null_and_Date_Sold_is_not_null_or_vice_versa check(DateOfExpiration is null and DateSold is not null or DateOfExpiration is not null and DateSold is null),
     constraint ck_Chocolate_Date_Sold_must_be_before_date_of_expiration check(DateSold < DateOfExpiration)
 )
 
@@ -57,10 +56,10 @@ select
     YearOnMarket = m.YearBorn,
     WeightOfChocolate = 
         (m.OlympicYear - m.YearBorn) / 10,
-    DateOfExpiration = '01/02/2025',
-        --concat(datepart(year, m.OlympicYear) + 5, '-', '0', datepart(month, m.OlympicYear - m.YearBorn / 6), '-', datepart(day, m.OlympicYear - m.YearBorn / 4)),
-    DateSold = null
-    --concat(datepart(year, m.OlympicYear), '-', '0', datepart(month, m.OlympicYear - m.YearBorn / 6), '-', datepart(day, m.OlympicYear - m.YearBorn / 4))
+    DateOfExpiration = 
+        concat(datepart(year, m.OlympicYear) + 5, '-', '0', datepart(month, m.OlympicYear - m.YearBorn / 6), '-', datepart(day, m.OlympicYear - m.YearBorn / 4)),
+    DateSold = 
+    concat(datepart(year, m.OlympicYear), '-', '0', datepart(month, m.OlympicYear - m.YearBorn / 6), '-', datepart(day, m.OlympicYear - m.YearBorn / 4))
 from RecordKeeperDB.dbo.Medalist m 
 
 select * from Chocolate p 
