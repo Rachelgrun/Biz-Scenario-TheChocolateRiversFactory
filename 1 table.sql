@@ -61,13 +61,13 @@ create table dbo.Chocolate(
     CountryOfOrigin varchar(50) not null
         constraint ck_Country_of_Origin_cannot_be_blank check(CountryOfOrigin <> ''),
     YearPutOnMarket int not null
-        constraint ck_Year_put_on_market_must_be_after_1840 check(YearPutOnMarket >= 1840),
+        constraint ck_Year_put_on_market_must_at_least_1840 check(YearPutOnMarket >= 1840),
     ChocolateWeight int not null
         constraint ck_Chocolate_Weight_must_be_between_1_and_6_oz check(ChocolateWeight between 1 and 6),
     ExpirationDate date not null
         constraint ck_Expiration_Date_cannot_be_blank check(ExpirationDate <> ''),
     SoldDate date default null,
-    constraint ck_Sold_Date_cannot_be_after_Expiration_Date check(SoldDate <= ExpirationDate) 
+    constraint ck_Sold_Date_must_be_between_the_year_put_on_market_and_the_Expiration_Date check(year(SoldDate) >= YearPutOnMarket and SoldDate < ExpirationDate),
 
 )
 go

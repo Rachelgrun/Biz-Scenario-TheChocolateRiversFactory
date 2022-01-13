@@ -32,7 +32,8 @@ insert Chocolate (ChocolateType, Flavor, Shape, CountryOfOrigin, YearPutOnMarket
 --select 1, 1, 'Heart', 'USA', '2021', 0, '2026-01-01', '2021-01-01'
 select 1, 1, 'Heart', 'USA', '2021', 7, '2026-01-01', '2021-01-01'
 
---Sold date not after expiration date
+--Sold date between year put on market and expiration date
 insert Chocolate (ChocolateType, Flavor, Shape, CountryOfOrigin, YearPutOnMarket, ChocolateWeight, ExpirationDate, SoldDate)
-select 1, 1, 'Heart', 'USA', '2021', 1, '2021-01-01', '2026-01-01'
+--select 1, 1, 'Heart', 'USA', '2021', 1, '2021-01-01', '2026-01-01'
+select 1, 1, 'Heart', 'USA', '2022', 1, '2026-01-01', '2021-01-01'
 

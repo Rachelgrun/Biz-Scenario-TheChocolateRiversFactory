@@ -27,8 +27,20 @@ what number flavor comes out? present the Recipe as the chocolate type descripti
 which operation it will get either plus 2 or minus 2 based on its flavor number i.e Chocolate Candy Bar:milk creme & Dark Creme: 5-2
 */
 
-select NewFlavor = CONCAT(
-    c.ChocolateTypeDesc, ':', c.FlavorDesc, ': ', c.Flavor,
+select NewChocolate= CONCAT(c.FlavorDesc,
+    case 
+        when (case when c.Flavor in (1,2) then c.Flavor + 2 else c.Flavor - 2 end) = 1 then 'Caramalized white chocolate'
+        when (case when c.Flavor in (1,2) then c.Flavor + 2 else c.Flavor - 2 end) = 2 then 'Milk Chocolate Hazelnut Esspresso'
+        when (case when c.Flavor in (1,2) then c.Flavor + 2 else c.Flavor - 2 end) = 3 then 'Dark 54 Chocolate Rasberry Pomegranate'
+        when (case when c.Flavor in (1,2) then c.Flavor + 2 else c.Flavor - 2 end) = 4 then 'Dark salted caramel'
+        when (case when c.Flavor in (1,2) then c.Flavor + 2 else c.Flavor - 2 end) = 5 then 'Milk creme & Dark Creme'
+    end,
+    ' ', c.ChocolateTypeDesc),
+Recipe = 
+ CONCAT(
+    c.ChocolateTypeDesc, ':', c.FlavorDesc, 
+    ' ',
+    ': ', c.Flavor,
     case 
     when c.Flavor between 3 and 5 then '-2'
     else '+2'

@@ -28,10 +28,7 @@ case
 --CountryOfOrigin
 m.Country,
 --YearPutOnMarket
-case
-    when m.YearBorn > 1840 then m.YearBorn
-    else 1840
-end,
+m.YearBorn,
 --ChocolateWeight
 (m.OlympicYear - m.YearBorn) / 10,
 --ExpirationDate
@@ -40,4 +37,4 @@ DATEFROMPARTS(m.OlympicYear + 5, (m.OlympicYear - m.YearBorn) / 6, (m.OlympicYea
 DATEFROMPARTS(m.OlympicYear, (m.OlympicYear - m.YearBorn) / 6, (m.OlympicYear - m.YearBorn) / 4)
 from RecordKeeperDB.dbo.Medalist m 
 
-select * from Chocolate
+--select * from Chocolate
