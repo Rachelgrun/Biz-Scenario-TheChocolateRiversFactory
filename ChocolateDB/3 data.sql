@@ -1,10 +1,17 @@
-insert Chocolate(ChocolateType, ChocolateFlavor, ChocolateShape, Country, YearOnMarket, WeightOfChocolate, DateOfExpiration, DateSold)
+use ChocolateFactoryDB
+go
+
+delete Chocolate
+insert Chocolate(ChocolateShape, ChocolateFlavor, ChocolateType, RecipeCountry, YearOnMarket, OZWeightOfChocolate, DateOfExpiration, DateSold)
 select 
-    ChocolateType = 
+    ChocolateShape =
         case 
-            when m.Medal = 'gold'  then 'Solid Block'
-            when m.medal = 'silver' then 'Chocolate Trouffles'
-            when m.Medal = 'Bronze' then 'Chocolate Candy Bar'
+            when m.OlympicYear - m.YearBorn between 14 and 16 then 'heart'
+            when m.OlympicYear - m.YearBorn between 17 and 27 then 'oval'
+            when m.OlympicYear - m.YearBorn between 29 and 41 then 'square'
+            when m.OlympicYear - m.YearBorn between 48 and 58 then 'oracle'
+            when m.OlympicYear - m.YearBorn between 59 and 60 then 'ripple'
+            else 'thimble'
         end,
     ChocolateFlavor = 
         case 
@@ -20,23 +27,20 @@ select
             then 'Dark salted caramel'
             else 'milk creme & Dark Creme'
         end,
-    ChocolateShape =
+    ChocolateType = 
         case 
-            when m.OlympicYear - m.YearBorn between 14 and 16 then 'heart'
-            when m.OlympicYear - m.YearBorn between 17 and 27 then 'oval'
-            when m.OlympicYear - m.YearBorn between 29 and 41 then 'square'
-            when m.OlympicYear - m.YearBorn between 48 and 58 then 'oracle'
-            when m.OlympicYear - m.YearBorn between 59 and 60 then 'ripple'
-            else 'thimble'
+            when m.Medal = 'gold'  then 'Solid Block'
+            when m.medal = 'silver' then 'Chocolate Trouffles'
+            when m.Medal = 'Bronze' then 'Chocolate Candy Bar'
         end,
-    Country = m.Country,
+    RecipeCountry = m.Country,
     YearOnMarket = m.YearBorn,
-    WeightOfChocolate = 
-        (m.OlympicYear - m.YearBorn) / 10,
-    DateOfExpiration = '01/02/2025',
-        --concat(datepart(year, m.OlympicYear) + 5, '-', '0', datepart(month, m.OlympicYear - m.YearBorn / 6), '-', datepart(day, m.OlympicYear - m.YearBorn / 4)),
-    DateSold = null
-    --concat(datepart(year, m.OlympicYear), '-', '0', datepart(month, m.OlympicYear - m.YearBorn / 6), '-', datepart(day, m.OlympicYear - m.YearBorn / 4))
+    OZWeightOfChocolate = (m.OlympicYear - m.YearBorn) / 10,
+    DateOfExpiration = datefromparts(m.OlympicYear + 5, datepart(month, ((m.OlympicYear + 5) - m.YearBorn) / 6), datepart(month, ((m.OlympicYear + 5) - m.YearBorn) / 4)),
+    DateSold = 
+             case 
+                when m.YearBorn > m.OlympicYear then null
+                else datefromparts(m.OlympicYear, datepart(month, (m.OlympicYear - m.YearBorn) / 6), datepart(month, (m.OlympicYear - m.YearBorn) / 4))
+             end
 from RecordKeeperDB.dbo.Medalist m 
 
-select * from Chocolate p 
